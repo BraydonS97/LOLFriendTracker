@@ -53,7 +53,7 @@ def update_game_banner(game_data, player_data):
                 class_mapping = {
                     "SUMMONER_ICON1": get_id_from_key(json_file_path, str(participant['spell1Id'])),
                     "SUMMONER_ICON2": get_id_from_key(json_file_path, str(participant['spell2Id'])),
-                    "GAME_STATUS_TIMER": format_game_time(game_data[0]['gameStartTime'])
+                    # "GAME_STATUS_TIMER": format_game_time(game_data[0]['gameStartTime'])
                     # "SUMMONER_RUNE1": participant['perkStyle'],
                     # "SUMMONER_RUNE2": participant['perkSubStyle']
                 }
@@ -61,7 +61,7 @@ def update_game_banner(game_data, player_data):
         class_mapping = {
                     "SUMMONER_ICON1": "",
                     "SUMMONER_ICON2": "",
-                    "GAME_STATUS_TIMER": ""
+                    "GAME_STATUS_TIMER": "000"
                 }
         pass
 

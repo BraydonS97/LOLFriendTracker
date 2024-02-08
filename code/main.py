@@ -1,8 +1,8 @@
 import Player_Data
 
 
-gameName = 'Hide on bush'
-tagLine = 'Mommy'
+gameName = 'Mom go sky lol'
+tagLine = 'NA1'
 
 Player_Data.retrieve_player_data(gameName, tagLine)
 

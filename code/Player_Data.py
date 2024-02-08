@@ -49,11 +49,6 @@ def get_player_game_status(player_data):
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
         return
-    
-    
-
-
-
 
 def retrieve_player_data(gameName, tagLine):
     try:
@@ -75,7 +70,7 @@ def retrieve_player_data(gameName, tagLine):
             summoner_info[key] = value  # Update summoner_info with match history data
 
         html_update.player_banner_update(summoner_info, get_player_game_status(summoner_info))
-
+        
         return summoner_info
     
     except requests.exceptions.RequestException as e:

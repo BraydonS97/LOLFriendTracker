@@ -9,7 +9,7 @@ def player_banner_update(player_data, player_game_status):
 
     # Calculate win rate
     total_games = player_data['wins'] / (player_data['wins'] + player_data['losses']) * 100
-    print("TEST:", player_data['leaguePoints'])
+
     # Check if the player is high enough elo to remove the Number part of the rank
     if player_data['tier'] == 'CHALLENGER' or player_data['tier'] == 'GRANDMASTER' or player_data['tier'] == 'MASTER':
         current_rank_info = player_data['tier'] + " - " + "{:,}".format(player_data['leaguePoints']) + " LP"
@@ -29,7 +29,15 @@ def player_banner_update(player_data, player_game_status):
             "GAME_STATUS_TIMER": modules.format_game_time(player_game_status[0]['gameStartTime'])
         }
     else:
-        pass
+        class_mapping = {
+            "SUMMONER_NAME": player_data['gameName'],
+            "CURRENT_RANK": current_rank_info,
+            "TOTAL_WINS_NUMBER": str(player_data['wins']),
+            "TOTAL_LOSSES_NUMBER": str(player_data['losses']),
+            "WINRATE_NUMBER": str(math.trunc(total_games)) + "%",
+            "GAME_STATUS": player_game_status[1],
+            # "GAME_STATUS_TIMER": ""
+        }
 
     # Parse the HTML content
     soup = BeautifulSoup(html_content, 'html.parser')
