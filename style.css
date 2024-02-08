@@ -1,0 +1,103 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+		"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+	color: white;
+	background-color: rgba(18, 21, 38, 255);
+}
+
+.player-card-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4em;
+	height: fit-content;
+	width: 30%;
+}
+
+.live-match-info-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4em;
+	width: 35%;
+	/* background-color: purple; */
+}
+
+.live-match-info {
+	display: flex;
+	background-color: purple;
+	font-size: 24px;
+}
+
+.top-container {
+	display: flex;
+	height: 400px;
+	gap: 0.4em;
+}
+
+.player-rank-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: purple;
+	height: 40px;
+}
+
+.SUMMONER_NAME {
+	background-color: purple;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.CURRENT_RANK {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.player-win-loss-ratio {
+	display: flex;
+	width: 100%;
+	gap: 0.2em;
+	font-size: 36px;
+}
+
+.sq1,
+.sq2,
+.sq3 {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	background-color: purple;
+	width: 100%;
+}
+
+.sq4 {
+	display: flex;
+	gap: 0.4em;
+}
+
+.player-game-status,
+.player-game-length {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	background-color: purple;
+	width: 100%;
+}
+
+.GAME_STATUS,
+.GAME_STATUS_TIMER {
+	font-size: 20px;
+}
+.game-status-text {
+	font-size: 14px;
+	background-color: purple;
+}
+
+.win-loss-text {
+	font-size: 14px;
+	padding-bottom: 16px;
+	line-height: 8px;
+}
