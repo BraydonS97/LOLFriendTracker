@@ -61,7 +61,7 @@ def update_game_banner(game_data, player_data):
         class_mapping = {
                     "SUMMONER_ICON1": "",
                     "SUMMONER_ICON2": "",
-                    "GAME_STATUS_TIMER": "000"
+
                 }
         pass
 

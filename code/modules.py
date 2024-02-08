@@ -1,6 +1,30 @@
 import requests
-from datetime import datetime, timedelta
 import time
+import json
+import os
+
+from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
+
+    
+def get_img_from_key(key_to_find):
+    current_directory = os.path.dirname(__file__)
+    parent_directory = os.path.dirname(current_directory)
+    file_path = os.path.join(parent_directory, "json_files", "summoner.json")
+
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    
+    matching_objects = []
+    if 'data' in data:
+        for entry in data['data'].values():
+            if 'key' in entry and entry['key'] == key_to_find:
+                matching_objects.append(entry)
+    
+    for obj in matching_objects:
+        return "/images/SummonerSpells/" + str(obj['id'] + ".png")
+    
 
 def time_since_last_match(player_last_match, api_key):
     try:
