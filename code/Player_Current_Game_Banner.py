@@ -4,7 +4,7 @@ import shutil
 from datetime import datetime, timedelta
 
 
-json_file_path = r'C:\Users\Brayd\Desktop\code-stuff\FriendTracker\json_files\summoner.json'
+json_file_path = r'/json_files/summoner.json'
     
 def get_id_from_key(json_file_path, key_to_find):
     with open(json_file_path, 'r') as file:
@@ -75,14 +75,11 @@ def update_game_banner(game_data, player_data):
         div_element = soup.find('div', class_=class_name)
 
         if div_element:
-            print('1')
             img_element = div_element.find('img')
             if img_element:
-                print('2')
                 img_element['src'] = new_content
             else:
                 div_element.string = new_content
-                print('3')
 
 
 

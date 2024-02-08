@@ -1,6 +1,5 @@
 from os import execlpe
 import requests
-import Player_Last_Match
 import html_update
 import modules
 
