@@ -7,11 +7,29 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
-    
-def get_img_from_key(key_to_find):
+def get_champion_img(key_to_find):
     current_directory = os.path.dirname(__file__)
     parent_directory = os.path.dirname(current_directory)
-    file_path = os.path.join(parent_directory, "json_files", "summoner.json")
+    file_path = os.path.join(parent_directory, "json_files", "champion_id.json")
+
+    with open(file_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    
+    matching_objects = []
+    if 'data' in data:
+        for entry in data['data'].values():
+            if 'key' in entry and entry['key'] == key_to_find:
+                matching_objects.append(entry)
+    
+    for obj in matching_objects:
+        return "/images/ChampionIcons/" + str(obj['id'] + "_0.jpg")
+
+
+    
+def get_summoner_spell_img(key_to_find):
+    current_directory = os.path.dirname(__file__)
+    parent_directory = os.path.dirname(current_directory)
+    file_path = os.path.join(parent_directory, "json_files", "summoner_spellid.json")
 
     with open(file_path, 'r') as file:
         data = json.load(file)

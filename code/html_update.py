@@ -18,18 +18,19 @@ def player_banner_update(player_data, player_game_status):
 
     player_info_mapping = {}
     game_info_mapping = {}
+    print(modules.get_champion_img(str(420)))
     # Define a dictionary to map class names to new content
     if player_game_status[1] == "IN GAME":
 
         # Current Game Mapping
         participants = player_game_status[0]['participants']
-        # print(participants)
+
         for participant in participants:
             if participant['puuid'] == player_data['puuid']:
-                
                 game_info_mapping = {
-                    "SUMMONER_ICON1": modules.get_img_from_key(str(participant['spell1Id'])),
-                    "SUMMONER_ICON2": modules.get_img_from_key(str(participant['spell2Id']))
+                    "CHAMPION_ICON": modules.get_champion_img(str(participant['championId'])),
+                    "SUMMONER_ICON1": modules.get_summoner_spell_img(str(participant['spell1Id'])),
+                    "SUMMONER_ICON2": modules.get_summoner_spell_img(str(participant['spell2Id']))
                 }
 
         # Basic player info Mapping
@@ -44,6 +45,7 @@ def player_banner_update(player_data, player_game_status):
         }
     else:
         game_info_mapping = {
+            "CHAMPION_ICON": '',
             "SUMMONER_ICON1": '',
             "SUMMONER_ICON2": '',
         }

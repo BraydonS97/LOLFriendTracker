@@ -3,8 +3,8 @@ import Player_Data
 # To do
 # 
 
-gameName = 'Tobias Fate'
-tagLine = 'Fate'
+gameName = 'Mom go sky lol'
+tagLine = 'NA1'
 
 Player_Data.retrieve_player_data(gameName, tagLine)
 

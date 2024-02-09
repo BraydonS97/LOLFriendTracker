@@ -15,23 +15,8 @@ body {
 	width: 30%;
 }
 
-.live-match-info-container {
-	display: flex;
-	flex-direction: column;
-	gap: 0.4em;
-	width: 35%;
-	/* background-color: purple; */
-}
-
-.live-match-info {
-	display: flex;
-	background-color: purple;
-	font-size: 24px;
-}
-
 .top-container {
 	display: flex;
-	height: 400px;
 	gap: 0.4em;
 }
 
@@ -100,4 +85,43 @@ body {
 	font-size: 14px;
 	padding-bottom: 16px;
 	line-height: 8px;
+}
+.CHAMPION_ICON {
+	display: flex;
+	justify-content: center;
+}
+.CHAMPION_ICON img {
+	border-radius: 50%;
+}
+.CHAMPION_ICON img {
+	height: 96px;
+	width: 96px;
+}
+
+.icon-container img {
+	width: 56px;
+	height: 56px;
+}
+
+.icon-container {
+	gap: 0.4em;
+}
+
+.live-match-info-container {
+	display: flex;
+	background-color: purple;
+	justify-content: center;
+	align-items: center;
+	gap: 0.4em;
+}
+
+.live-match-info {
+	display: flex;
+	flex-direction: column;
+	width: 150px;
+	gap: 0.4em;
+}
+.icon-container {
+	display: flex;
+	justify-content: center;
 }

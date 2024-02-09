@@ -42,6 +42,7 @@ def get_player_game_status(player_data):
         
         if response.status_code == 200:
             player_game_status = response.json()
+            # print(player_game_status)
             return player_game_status, "IN GAME"
         else:
             return modules.time_since_last_match(player_data['match_id0'], api_key), "NOT IN GAME"
