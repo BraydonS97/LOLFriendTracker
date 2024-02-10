@@ -17,6 +17,7 @@ body {
 
 .top-container {
 	display: flex;
+	height: 600px;
 	gap: 0.4em;
 }
 
@@ -54,16 +55,20 @@ body {
 	text-align: center;
 	justify-content: center;
 	background-color: purple;
+	height: fit-content;
 	width: 100%;
 }
 
 .sq4 {
 	display: flex;
+	flex-direction: column;
+	height: 80px;
 	gap: 0.4em;
 }
 
 .player-game-status,
-.player-game-length {
+.player-game-length,
+.games-played-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -73,7 +78,8 @@ body {
 }
 
 .GAME_STATUS,
-.GAME_STATUS_TIMER {
+.GAME_STATUS_TIMER,
+.GAMES_PLAYED {
 	font-size: 20px;
 }
 .game-status-text {
@@ -81,7 +87,8 @@ body {
 	background-color: purple;
 }
 
-.win-loss-text {
+.win-loss-text,
+.current-game-status {
 	font-size: 14px;
 	padding-bottom: 16px;
 	line-height: 8px;
@@ -90,12 +97,17 @@ body {
 	display: flex;
 	justify-content: center;
 }
+
 .CHAMPION_ICON img {
 	border-radius: 50%;
-}
-.CHAMPION_ICON img {
 	height: 96px;
 	width: 96px;
+}
+
+.CHAMPION_ICON img[src=""],
+.SUMMONER_ICON1 img[src=""],
+.SUMMONER_ICON2 img[src=""] {
+	display: none;
 }
 
 .icon-container img {
@@ -112,6 +124,7 @@ body {
 	background-color: purple;
 	justify-content: center;
 	align-items: center;
+	height: fit-content;
 	gap: 0.4em;
 }
 

@@ -3,9 +3,9 @@ import time
 import json
 import os
 
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+
 
 def get_champion_img(key_to_find):
     current_directory = os.path.dirname(__file__)
@@ -23,6 +23,32 @@ def get_champion_img(key_to_find):
     
     for obj in matching_objects:
         return "/images/ChampionIcons/" + str(obj['id'] + "_0.jpg")
+
+def games_played_today(summoner_puuid, api_key):
+
+    # Get today's date in UTC
+    today_utc = datetime.now(timezone.utc).date()
+
+    # Get the start of the day
+    start_of_day_utc = datetime.combine(today_utc, datetime.min.time(), tzinfo=timezone.utc)
+
+    # Get the end of the day
+    end_of_day_utc = datetime.combine(today_utc, datetime.max.time(), tzinfo=timezone.utc)
+
+    # Convert to epoch timestamps
+    start_epoch_utc = int(start_of_day_utc.timestamp())
+    end_epoch_utc = int(end_of_day_utc.timestamp())
+
+    player_matches_url = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{summoner_puuid['puuid']}/ids?startTime={start_epoch_utc}&endTime={end_epoch_utc}&type=ranked&start=0&count=40&api_key={api_key}"
+    
+    response = requests.get(player_matches_url)
+    if response.status_code == 200:
+        player_game_status = response.json()
+        return str(len(player_game_status))
+    else:
+        print("Failed to retrieve data:", response.text)
+        
+
 
 
     
@@ -42,6 +68,31 @@ def get_summoner_spell_img(key_to_find):
     
     for obj in matching_objects:
         return "/images/SummonerSpells/" + str(obj['id'] + ".png")
+    
+
+def last_match(last_match_data):
+
+    match_start_time = last_match_data['info']['gameStartTimestamp'] / 1000
+    game_duration = last_match_data['info']['gameDuration']
+
+    current_time = time.time()
+
+    time_difference = current_time - (match_start_time + game_duration)
+    
+    if time_difference < 60:  # Less than a minute
+        return f"{int(time_difference)} seconds ago", last_match_data
+    elif time_difference < 3600:  # Less than an hour
+        minutes = int(time_difference / 60)
+        return f"{minutes} minute{'s' if minutes != 1 else ''} ago", last_match_data
+    elif time_difference < 86400:  # Less than a day
+        hours = int(time_difference / 3600)
+        return f"{hours} hour{'s' if hours != 1 else ''} ago", last_match_data
+    elif time_difference < 2592000:  # Less than a month (30 days)
+        days = int(time_difference / 86400)
+        return f"{days} day{'s' if days != 1 else ''} ago", last_match_data
+    else:  # More than a month
+        months = int(time_difference) // (30 * 86400)
+        return f"{months} month{'s' if months != 1 else ''} ago", last_match_data
     
 
 def time_since_last_match(player_last_match, api_key):

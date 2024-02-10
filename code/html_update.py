@@ -18,8 +18,8 @@ def player_banner_update(player_data, player_game_status):
 
     player_info_mapping = {}
     game_info_mapping = {}
-    print(modules.get_champion_img(str(420)))
     # Define a dictionary to map class names to new content
+    # print(player_game_status)
     if player_game_status[1] == "IN GAME":
 
         # Current Game Mapping
@@ -41,9 +41,13 @@ def player_banner_update(player_data, player_game_status):
             "TOTAL_LOSSES_NUMBER": str(player_data['losses']),
             "WINRATE_NUMBER": str(math.trunc(total_games)) + "%",
             "GAME_STATUS": player_game_status[1],
-            "GAME_STATUS_TIMER": modules.format_game_time(player_game_status[0]['gameStartTime'])
+            "GAME_STATUS_TIMER": modules.format_game_time(player_game_status[0]['gameStartTime']),
+            "current-game-status": "Game Length",
+            "GAMES_PLAYED": player_data['games_played_today']
+
         }
     else:
+        # print(player_game_status)
         game_info_mapping = {
             "CHAMPION_ICON": '',
             "SUMMONER_ICON1": '',
@@ -56,7 +60,9 @@ def player_banner_update(player_data, player_game_status):
             "TOTAL_LOSSES_NUMBER": str(player_data['losses']),
             "WINRATE_NUMBER": str(math.trunc(total_games)) + "%",
             "GAME_STATUS": player_game_status[1],
-            "GAME_STATUS_TIMER": "00:00"
+            "GAME_STATUS_TIMER": player_game_status[0][0],
+            "current-game-status": "Last Played",
+            "GAMES_PLAYED": player_data['games_played_today']
         }
 
     player_info_mapping.update(game_info_mapping)

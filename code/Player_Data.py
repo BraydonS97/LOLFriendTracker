@@ -32,8 +32,9 @@ def get_player_match_history(summoner_puuid):
     player_matches_url = f"{AMERICAS_API_BASE_URL}/lol/match/v5/matches/by-puuid/{summoner_puuid}/ids?type=ranked&start=0&count=30&api_key={api_key}"
     response = requests.get(player_matches_url)
     response.raise_for_status()  # Raise an exception for HTTP errors
-    # print(response.json())
+
     return response.json()
+
 
 def get_player_game_status(player_data):
     try:    
@@ -56,6 +57,8 @@ def retrieve_player_data(gameName, tagLine):
         summoner_info = get_summoner_id(gameName, tagLine)
         summoner_data = get_summoner_data(summoner_info['puuid'])
         player_ranked_data = get_player_rank_data(summoner_data['id'])
+        games_played_today = modules.games_played_today(summoner_info, api_key)
+
 
         # Formats match history into appropriate format to merge
         formatted_match_history = {}
@@ -69,9 +72,14 @@ def retrieve_player_data(gameName, tagLine):
             summoner_info.update(player_rank_data_entry)
         for key, value in formatted_match_history.items():  # Iterate over key-value pairs
             summoner_info[key] = value  # Update summoner_info with match history data
+        
+
+        summoner_info['games_played_today'] = games_played_today
+        print(summoner_info)
 
         html_update.player_banner_update(summoner_info, get_player_game_status(summoner_info))
         
+
         return summoner_info
     
     except requests.exceptions.RequestException as e:
