@@ -7,12 +7,14 @@ import Player_Data
 # LP GAINED / LOSSED on the day
 # Rank icons
 # UI overhaul
-# lane text under champ icon
 
-gameName = '1T1T1T1T1T1'
-tagLine = 'NA1'
+api_key = ''
+gameName = 'Hide on bush'
+tagLine = 'Mommy'
 
-Player_Data.retrieve_player_data(gameName, tagLine)
+player_data = Player_Data.retrieve_player_data(gameName, tagLine, api_key)
+
+
 
 
 

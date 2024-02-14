@@ -2,9 +2,39 @@ import requests
 import time
 import json
 import os
+import pytz
+import shutil
 
 from datetime import datetime, timezone, timedelta
 from bs4 import BeautifulSoup
+
+def html_div_changer(mapped_data):
+    with open('index.html', 'r') as file:
+            html_content = file.read()
+
+    # Parse the HTML content
+    soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Find and modify <div> elements based on the class name mapping
+    for class_name, new_content in mapped_data.items():
+        div_element = soup.find('div', class_=class_name)
+
+        if div_element:
+            img_element = div_element.find('img')
+            if img_element:
+                img_element['src'] = new_content
+            else:
+                div_element.string = new_content
+        else:
+            print(f"No <div> element found with class name: {class_name}")
+
+    # Save the modified HTML content to a temporary file
+    with open('modified_index.html', 'w') as file:
+        file.write(str(soup))
+
+    # Replace the original file with the modified one
+    shutil.move('modified_index.html', 'index.html')
+
 
 
 def get_champion_img(key_to_find):
@@ -26,20 +56,24 @@ def get_champion_img(key_to_find):
 
 def games_played_today(summoner_puuid, api_key):
 
-    # Get today's date in UTC
-    today_utc = datetime.now(timezone.utc).date()
+    # Get today's date in local time
+    local_timezone = pytz.timezone('America/New_York')
+    today_local = datetime.now(local_timezone).date()
 
     # Get the start of the day
-    start_of_day_utc = datetime.combine(today_utc, datetime.min.time(), tzinfo=timezone.utc)
+    start_of_day_local = local_timezone.localize(datetime.combine(today_local, datetime.min.time()))
+    # print(start_of_day_local)
 
     # Get the end of the day
-    end_of_day_utc = datetime.combine(today_utc, datetime.max.time(), tzinfo=timezone.utc)
+    end_of_day_local = local_timezone.localize(datetime.combine(today_local, datetime.max.time()))
 
     # Convert to epoch timestamps
-    start_epoch_utc = int(start_of_day_utc.timestamp())
-    end_epoch_utc = int(end_of_day_utc.timestamp())
+    start_epoch_local = int(start_of_day_local.timestamp())
+    # print(start_epoch_local)
+    end_epoch_local = int(end_of_day_local.timestamp())
+    # print(end_epoch_local)
 
-    player_matches_url = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{summoner_puuid['puuid']}/ids?startTime={start_epoch_utc}&endTime={end_epoch_utc}&type=ranked&start=0&count=40&api_key={api_key}"
+    player_matches_url = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{summoner_puuid['puuid']}/ids?startTime={start_epoch_local}&endTime={end_epoch_local}&type=ranked&start=0&count=40&api_key={api_key}"
     
     response = requests.get(player_matches_url)
     if response.status_code == 200:
@@ -109,6 +143,8 @@ def time_since_last_match(player_last_match, api_key):
             current_time = time.time()
 
             time_difference = current_time - (match_start_time + game_duration)
+
+        # Player_speicifc_match retursn the last game data in full.
 
         if time_difference < 60:  # Less than a minute
             return f"{int(time_difference)} seconds ago", player_specific_match
